@@ -34,11 +34,11 @@ public class Scoreboard {
         this.score = score;
         this.time = time;
     }
-    public Scoreboard(UUID playerId, String difficulty, int score, int time) {
-        this.playerId = playerId;
+    public Scoreboard(String playerId, String difficulty, String score, String time) {
+        this.playerId = UUID.fromString(playerId);
         this.difficulty = difficulty;
-        this.score = score;
-        this.time = time;
+        this.score = Integer.parseInt(score);
+        this.time = Integer.parseInt(time);
     }
 
     @Override
