@@ -1,5 +1,5 @@
-package com.setcardgameserver.scoreboard;
-
+//package com.setcardgameserver.scoreboard;
+//
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,6 @@ package com.setcardgameserver.scoreboard;
 //    CommandLineRunner commandLineRunner(ScoreboardRepository scoreboardRepository){
 //        return args ->{
 //            Scoreboard s1 = new Scoreboard(
-//                    1L,
 //                    id1,
 //                    "Normal",
 //                    9,
@@ -25,7 +24,6 @@ package com.setcardgameserver.scoreboard;
 //            );
 //
 //            Scoreboard s2 = new Scoreboard(
-//                    2L,
 //                    id2,
 //                    "Easy",
 //                    9,

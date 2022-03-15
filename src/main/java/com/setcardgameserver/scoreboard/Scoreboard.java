@@ -41,6 +41,13 @@ public class Scoreboard {
         this.time = Integer.parseInt(time);
     }
 
+    public Scoreboard(UUID playerId, String difficulty, int score, int time) {
+        this.playerId = playerId;
+        this.difficulty = difficulty;
+        this.score = score;
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Scoreboard{" +
