@@ -35,4 +35,9 @@ public class ScoreboardController {
     public void addScore(@RequestBody Scoreboard score){
         scoreboardService.addScore(score);
     }
+
+    @GetMapping("/scoreboard/clear")
+    public void clearScoreboard(){
+        scoreboardService.clearScoreboard();
+    }
 }

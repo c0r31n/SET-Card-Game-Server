@@ -36,4 +36,8 @@ public class ScoreboardService {
     public List<Scoreboard> findTopScores() {
         return scoreboardRepository.findFirst100ByOrderByDifficultyDescScoreDescTimeAsc();
     }
+
+    public void clearScoreboard(){
+        scoreboardRepository.deleteAll();
+    }
 }
