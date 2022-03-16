@@ -21,12 +21,14 @@ public class ScoreboardService {
         return scoreboardRepository.findAll();
     }
 
-    public void addScore(Scoreboard newScore) {
+    public Optional<Scoreboard> addScore(Scoreboard newScore) {
         Optional<Scoreboard> optionalScoreboard = scoreboardRepository.findByScoreId(newScore.getScoreId());
 
         if (optionalScoreboard.isEmpty()){
             scoreboardRepository.save(newScore);
+            return scoreboardRepository.findByScoreId(newScore.getScoreId());
         }
+        return null;
     }
 
     public List<Scoreboard> findPlayerScores(UUID playerId) {

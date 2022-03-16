@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -32,8 +33,9 @@ public class ScoreboardController {
     }
 
     @PostMapping("/scoreboard/add")
-    public void addScore(@RequestBody Scoreboard score){
-        scoreboardService.addScore(score);
+    public Optional<Scoreboard> addScore(@RequestBody Scoreboard score){
+        return scoreboardService.addScore(score);
+
     }
 
     @GetMapping("/scoreboard/clear")
