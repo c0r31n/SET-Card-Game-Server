@@ -59,7 +59,7 @@ public class GameController {
     }
 
     @PostMapping("/alma")
-    public String alma(@RequestBody UUID player){
+    public String alma(@RequestBody String player){
         return "alma";
     }
 
