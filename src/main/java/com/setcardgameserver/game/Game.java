@@ -5,6 +5,7 @@ import com.setcardgameserver.card.Color;
 import com.setcardgameserver.card.Quantity;
 import com.setcardgameserver.card.Shape;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 

@@ -34,8 +34,10 @@ public class ScoreboardController {
 
     @PostMapping("/scoreboard/add")
     public Optional<Scoreboard> addScore(@RequestBody Scoreboard score){
-        return scoreboardService.addScore(score);
-
+        if(score.getScore()>0 && score.getScore()<10 && score.getTime()>0 && (score.getDifficulty().equals("Easy") || score.getDifficulty().equals("Normal"))){
+            return scoreboardService.addScore(score);
+        }
+        return null;
     }
 
     @GetMapping("/scoreboard/clear")

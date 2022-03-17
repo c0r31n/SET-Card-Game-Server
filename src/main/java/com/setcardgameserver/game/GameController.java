@@ -58,5 +58,10 @@ public class GameController {
         return ResponseEntity.ok(game);
     }
 
+    @PostMapping("/alma")
+    public String alma(@RequestBody UUID player){
+        return "alma";
+    }
+
     //kell delete game
 }
