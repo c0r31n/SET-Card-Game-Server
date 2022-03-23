@@ -6,6 +6,7 @@ import com.setcardgameserver.exception.InvalidParamException;
 import com.setcardgameserver.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -40,6 +41,11 @@ public class GameController {
     @MessageMapping("/connect/random")
     public ResponseEntity<Game> connectRandom(@RequestBody UUID player) throws NotFoundException {
         log.info("connect random {}", player);
+
+        JSONObject jsonPlayer = new JSONObject();
+        jsonPlayer.put("player", player.toString());
+        simpMessagingTemplate.convertAndSend("/topic/alma", jsonPlayer);
+
         return ResponseEntity.ok(gameService.connectToRandomGame(player));
     }
 
