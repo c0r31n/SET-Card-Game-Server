@@ -147,4 +147,17 @@ public class GameService {
 
         return game;
     }
+
+    public void removeGame(int gameId) throws NotFoundException{
+        if (!GameStorage.getInstance().getGames().containsKey(gameId)) {
+            throw new NotFoundException("Game not found");
+        }
+
+        Game game = GameStorage.getInstance().getGames().get(gameId);
+        GameStorage.getInstance().removeGame(game);
+    }
+
+    public void destroyAllGames(){
+        GameStorage.getInstance().removeAllGames();
+    }
 }

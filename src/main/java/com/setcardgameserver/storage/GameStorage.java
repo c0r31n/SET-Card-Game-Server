@@ -32,4 +32,8 @@ public class GameStorage {
     public void removeGame(Game game){
         games.remove(game.getGameId());
     }
+
+    public void removeAllGames(){
+        games.clear();
+    }
 }
