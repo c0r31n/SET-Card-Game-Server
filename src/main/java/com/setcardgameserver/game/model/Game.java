@@ -1,11 +1,10 @@
-package com.setcardgameserver.game;
+package com.setcardgameserver.game.model;
 
 import com.setcardgameserver.card.Card;
 import com.setcardgameserver.card.Color;
 import com.setcardgameserver.card.Quantity;
 import com.setcardgameserver.card.Shape;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 

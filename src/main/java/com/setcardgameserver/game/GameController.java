@@ -1,22 +1,17 @@
 package com.setcardgameserver.game;
 
-import com.setcardgameserver.config.ConnectRequest;
+import com.setcardgameserver.game.model.ConnectRequest;
 import com.setcardgameserver.exception.InvalidGameException;
 import com.setcardgameserver.exception.InvalidParamException;
 import com.setcardgameserver.exception.NotFoundException;
-import com.setcardgameserver.game.model.DestroyGameModel;
-import com.setcardgameserver.game.model.PlayerModel;
+import com.setcardgameserver.game.model.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
@@ -80,5 +75,10 @@ public class GameController {
     public void destroyAllGames(@RequestBody PlayerModel player){
         log.info("destroy all games by {}", player.getUsername());
         gameService.destroyAllGames();
+    }
+
+    @MessageMapping("/ping")
+    public String ping(PingPong ping){
+        return "pong";
     }
 }
