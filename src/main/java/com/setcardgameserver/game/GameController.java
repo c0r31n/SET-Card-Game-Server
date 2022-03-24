@@ -44,9 +44,11 @@ public class GameController {
 
         JSONObject jsonPlayer = new JSONObject();
         jsonPlayer.put("player", player.toString());
-        simpMessagingTemplate.convertAndSend("/topic/alma", jsonPlayer);
 
-        return gameService.connectToRandomGame(player);
+        Game game = gameService.connectToRandomGame(player);
+        simpMessagingTemplate.convertAndSend("/topic/alma", game);
+
+        return game;
     }
 
     @MessageMapping("/gameplay")
