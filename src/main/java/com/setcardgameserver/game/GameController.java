@@ -4,6 +4,7 @@ import com.setcardgameserver.config.ConnectRequest;
 import com.setcardgameserver.exception.InvalidGameException;
 import com.setcardgameserver.exception.InvalidParamException;
 import com.setcardgameserver.exception.NotFoundException;
+import com.setcardgameserver.game.model.PlayerModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -39,14 +40,14 @@ public class GameController {
     }
 
     @MessageMapping("/connect/random")
-    public Game connectRandom(UUID player) throws NotFoundException {
-        log.info("connect random {}", player);
+    public Game connectRandom(PlayerModel player) throws NotFoundException {
+        log.info("connect random {}", player.getUsername().toString());
 
         JSONObject jsonPlayer = new JSONObject();
-        jsonPlayer.put("player", player.toString());
+        jsonPlayer.put("player", player.getUsername().toString());
 
-        Game game = gameService.connectToRandomGame(player);
-        simpMessagingTemplate.convertAndSend("/topic/alma", game);
+        Game game = gameService.connectToRandomGame(player.getUsername());
+        simpMessagingTemplate.convertAndSend("/topic/alma", jsonPlayer);
 
         return game;
     }
@@ -65,11 +66,6 @@ public class GameController {
         Game game = gameService.buttonPress(buttonPress);
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         return ResponseEntity.ok(game);
-    }
-
-    @MessageMapping("/alma")
-    public String alma(@RequestBody String player){
-        return "alma";
     }
 
     //kell delete game
