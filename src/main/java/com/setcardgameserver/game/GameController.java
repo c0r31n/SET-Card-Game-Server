@@ -38,6 +38,7 @@ public class GameController {
     @MessageMapping("/connect/random")
     public Game connectRandom(@RequestBody PlayerModel player) throws NotFoundException {
         log.info("connect random {}", player.getUsername().toString());
+        System.out.println("connect random " + player.getUsername().toString());
 
         JSONObject jsonPlayer = new JSONObject();
         jsonPlayer.put("player", player.getUsername());
@@ -75,10 +76,5 @@ public class GameController {
     public void destroyAllGames(@RequestBody PlayerModel player){
         log.info("destroy all games by {}", player.getUsername());
         gameService.destroyAllGames();
-    }
-
-    @MessageMapping("/ping")
-    public String ping(PingPong ping){
-        return "pong";
     }
 }
