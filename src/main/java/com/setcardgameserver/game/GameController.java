@@ -39,7 +39,7 @@ public class GameController {
     }
 
     @MessageMapping("/connect/random")
-    public Game connectRandom(@RequestBody UUID player) throws NotFoundException {
+    public Game connectRandom(UUID player) throws NotFoundException {
         log.info("connect random {}", player);
 
         JSONObject jsonPlayer = new JSONObject();
