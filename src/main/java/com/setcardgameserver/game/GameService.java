@@ -63,6 +63,7 @@ public class GameService {
 
         if (hasGame.isEmpty()){
             game = createNewRandomGame(player2);
+            System.out.println("isEmpty");
             return game;
         }
         else if (hasGame.isPresent()){
@@ -73,6 +74,7 @@ public class GameService {
             if (game.getPlayer1()==player2){
                 removeGame(game.getGameId());
                 game = createNewRandomGame(player2);
+                System.out.println("same game");
                 return game;
             }
 
@@ -80,9 +82,11 @@ public class GameService {
             game.getPoints().put(player2,0);
             game.setStatus(GameStatus.IN_PROGRESS);
             GameStorage.getInstance().setGame(game);
+            System.out.println("isPresent");
             return game;
         }
 
+        System.out.println("nothing");
         return null;
     }
 
