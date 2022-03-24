@@ -74,11 +74,13 @@ public class GameController {
     }
 
     @MessageMapping("/game/destroy")
-    public void destroyGame(@RequestBody DestroyGameModel gameId) throws NotFoundException {
+    public String destroyGame(@RequestBody DestroyGameModel gameId) throws NotFoundException {
         log.info("destroy game {}", gameId.getGameId());
         System.out.println("\n\ndestroy game " + gameId.getGameId()+"\n\n");
 
         gameService.removeGame(gameId.getGameId());
+        simpMessagingTemplate.convertAndSend("/topic/destroyed/" + gameId.getGameId(), "Done");
+        return "Done";
     }
 
     @MessageMapping("/all/destroy")
