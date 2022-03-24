@@ -69,6 +69,13 @@ public class GameService {
             game = GameStorage.getInstance().getGames().values().stream()
                     .filter(it -> it.getStatus().equals(GameStatus.NEW))
                     .findFirst().orElseThrow(() -> new NotFoundException("Game not found"));
+
+            if (game.getPlayer1()==player2){
+                removeGame(game.getGameId());
+                game = createNewRandomGame(player2);
+                return game;
+            }
+
             game.setPlayer2(player2);
             game.getPoints().put(player2,0);
             game.setStatus(GameStatus.IN_PROGRESS);
@@ -159,6 +166,7 @@ public class GameService {
 
         Game game = GameStorage.getInstance().getGames().get(gameId);
         GameStorage.getInstance().removeGame(game);
+        System.out.println("\n\nGame removed\n\n");
     }
 
     public void destroyAllGames(){
