@@ -7,12 +7,12 @@ import java.util.UUID;
 
 @Data
 public class PlayerModel {
-    private UUID username;
+    private String username;
 
     public PlayerModel() {
     }
 
     public PlayerModel(String username) {
-        this.username = UUID.fromString(username);
+        this.username = username;
     }
 }

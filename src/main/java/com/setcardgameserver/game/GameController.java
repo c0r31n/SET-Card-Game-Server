@@ -44,10 +44,10 @@ public class GameController {
         log.info("connect random {}", player.getUsername().toString());
 
         JSONObject jsonPlayer = new JSONObject();
-        jsonPlayer.put("player", player.getUsername().toString());
+        jsonPlayer.put("player", player.getUsername());
 
-        Game game = gameService.connectToRandomGame(player.getUsername());
-        simpMessagingTemplate.convertAndSend("/topic/alma", jsonPlayer);
+        Game game = gameService.connectToRandomGame(UUID.fromString(player.getUsername()));
+        simpMessagingTemplate.convertAndSend("/topic/alma", game);
 
         return game;
     }
