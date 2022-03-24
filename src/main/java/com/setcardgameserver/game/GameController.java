@@ -39,14 +39,14 @@ public class GameController {
     }
 
     @MessageMapping("/connect/random")
-    public ResponseEntity<Game> connectRandom(@RequestBody UUID player) throws NotFoundException {
+    public Game connectRandom(@RequestBody UUID player) throws NotFoundException {
         log.info("connect random {}", player);
 
         JSONObject jsonPlayer = new JSONObject();
         jsonPlayer.put("player", player.toString());
         simpMessagingTemplate.convertAndSend("/topic/alma", jsonPlayer);
 
-        return ResponseEntity.ok(gameService.connectToRandomGame(player));
+        return gameService.connectToRandomGame(player);
     }
 
     @MessageMapping("/gameplay")
