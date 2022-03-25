@@ -25,7 +25,7 @@ public class GameController {
 
     @MessageMapping("/create")
     public Game start(@RequestBody PlayerModel player) {
-        log.info("start game request: {}", player.getUsername());
+//        log.info("start game request: {}", player.getUsername());
         System.out.println("\n\nstart game request: " + player.getUsername()+"\n\n");
 
         return gameService.createGame(UUID.fromString(player.getUsername()));
@@ -33,7 +33,7 @@ public class GameController {
 
     @MessageMapping("/connect")
     public Game connect(@RequestBody ConnectRequest request) throws InvalidParamException, InvalidGameException {
-        log.info("connect request: {}", request.getPlayerId());
+//        log.info("connect request: {}", request.getPlayerId());
         System.out.println("\n\nconnect request: " + request.getGameId()+ " " + request.getPlayerId() +"\n\n");
 
         return gameService.connectToGame(request.getPlayerId(), request.getGameId());
@@ -41,7 +41,7 @@ public class GameController {
 
     @MessageMapping("/connect/random")
     public Game connectRandom(@RequestBody PlayerModel player) throws NotFoundException {
-        log.info("connect random {}", player.getUsername().toString());
+//        log.info("connect random {}", player.getUsername().toString());
         System.out.println("\n\nconnect random " + player.getUsername().toString()+"\n\n");
 
         JSONObject jsonPlayer = new JSONObject();
@@ -55,7 +55,7 @@ public class GameController {
 
     @MessageMapping("/gameplay")
     public Game gamePlay(@RequestBody GamePlay request) throws NotFoundException, InvalidGameException {
-        log.info("gameplay: {}", request.getPlayerId());
+//        log.info("gameplay: {}", request.getPlayerId());
         System.out.println("\n\ngameplay: " + request.getGameId()+ " " + request.getPlayerId() + "\n\n");
 
         Game game = gameService.gamePlay(request);
@@ -65,7 +65,7 @@ public class GameController {
 
     @MessageMapping("/gameplay/button")
     public Game buttonPress(@RequestBody GamePlayButtonPress buttonPress) throws NotFoundException, InvalidGameException {
-        log.info("buttonPress: {}", buttonPress.getPlayerId());
+//        log.info("buttonPress: {}", buttonPress.getPlayerId());
         System.out.println("\n\nbuttonPress:  " + buttonPress.getPlayerId()+"\n\n");
 
         Game game = gameService.buttonPress(buttonPress);
@@ -75,7 +75,7 @@ public class GameController {
 
     @MessageMapping("/game/destroy")
     public String destroyGame(@RequestBody GameIdModel gameId) throws NotFoundException {
-        log.info("destroy game {}", gameId.getGameId());
+//        log.info("destroy game {}", gameId.getGameId());
         System.out.println("\n\ndestroy game " + gameId.getGameId()+"\n\n");
 
         gameService.removeGame(gameId.getGameId());
@@ -85,7 +85,7 @@ public class GameController {
 
     @MessageMapping("/all/destroy")
     public void destroyAllGames(@RequestBody PlayerModel player){
-        log.info("destroy all games by {}", player.getUsername());
+//        log.info("destroy all games by {}", player.getUsername());
         System.out.println("\n\ndestroy all games by " + player.getUsername() +"\n\n");
 
         gameService.destroyAllGames();
@@ -93,7 +93,7 @@ public class GameController {
 
     @MessageMapping("/start")
     public Game startGame(@RequestBody GameIdModel gameId) throws NotFoundException {
-        log.info("game started: {}", gameId.getGameId());
+//        log.info("game started: {}", gameId.getGameId());
         System.out.println("\n\ngame started: " + gameId.getGameId()+"\n\n");
 
         Game game = gameService.getGameById(gameId.getGameId());
