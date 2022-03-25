@@ -23,7 +23,7 @@ public class GameController {
     private final GameService gameService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/start")
+    @MessageMapping("/create")
     public Game start(@RequestBody PlayerModel player) {
         log.info("start game request: {}", player.getUsername());
         System.out.println("\n\nstart game request: " + player.getUsername()+"\n\n");
@@ -74,7 +74,7 @@ public class GameController {
     }
 
     @MessageMapping("/game/destroy")
-    public String destroyGame(@RequestBody DestroyGameModel gameId) throws NotFoundException {
+    public String destroyGame(@RequestBody GameIdModel gameId) throws NotFoundException {
         log.info("destroy game {}", gameId.getGameId());
         System.out.println("\n\ndestroy game " + gameId.getGameId()+"\n\n");
 
@@ -89,5 +89,16 @@ public class GameController {
         System.out.println("\n\ndestroy all games by " + player.getUsername() +"\n\n");
 
         gameService.destroyAllGames();
+    }
+
+    @MessageMapping("/start")
+    public Game startGame(@RequestBody GameIdModel gameId) throws NotFoundException {
+        log.info("game started: {}", gameId.getGameId());
+        System.out.println("\n\ngame started: " + gameId.getGameId()+"\n\n");
+
+        Game game = gameService.getGameById(gameId.getGameId());
+        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
+
+        return game;
     }
 }

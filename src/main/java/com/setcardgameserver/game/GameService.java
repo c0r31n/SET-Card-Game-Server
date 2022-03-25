@@ -163,6 +163,13 @@ public class GameService {
         return game;
     }
 
+    public Game getGameById(int gameId) throws NotFoundException {
+        if (!GameStorage.getInstance().getGames().containsKey(gameId)) {
+            throw new NotFoundException("Game not found");
+        }
+        return GameStorage.getInstance().getGames().get(gameId);
+    }
+
     public void removeGame(int gameId) throws NotFoundException{
         if (!GameStorage.getInstance().getGames().containsKey(gameId)) {
             throw new NotFoundException("Game not found");

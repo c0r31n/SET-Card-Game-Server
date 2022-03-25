@@ -3,13 +3,13 @@ package com.setcardgameserver.game.model;
 import lombok.Data;
 
 @Data
-public class DestroyGameModel {
+public class GameIdModel {
     private int gameId;
 
-    public DestroyGameModel() {
+    public GameIdModel() {
     }
 
-    public DestroyGameModel(int gameId) {
+    public GameIdModel(int gameId) {
         this.gameId = gameId;
     }
 }
