@@ -48,7 +48,7 @@ public class GameController {
         jsonPlayer.put("player", player.getUsername());
 
         Game game = gameService.connectToRandomGame(UUID.fromString(player.getUsername()));
-        simpMessagingTemplate.convertAndSend("/topic/alma", game);
+        simpMessagingTemplate.convertAndSend("/topic/waiting", game);
 
         return game;
     }

@@ -71,7 +71,7 @@ public class GameService {
                     .filter(it -> it.getStatus().equals(GameStatus.NEW))
                     .findFirst().orElseThrow(() -> new NotFoundException("Game not found"));
 
-            if (game.getPlayer1()==player2){
+            if (game.getPlayer1().toString().equals(player2.toString())){
                 removeGame(game.getGameId());
                 game = createNewRandomGame(player2);
                 System.out.println("same game");
