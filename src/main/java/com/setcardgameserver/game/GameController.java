@@ -97,7 +97,7 @@ public class GameController {
         System.out.println("\n\ngame started: " + gameId.getGameId()+"\n\n");
 
         Game game = gameService.getGameById(gameId.getGameId());
-        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
+        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + gameId.getGameId(), game);
 
         return game;
     }
