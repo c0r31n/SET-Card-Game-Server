@@ -78,11 +78,13 @@ public class GameService {
                 return game;
             }
 
-            if (game.getPlayer2().toString().equals(player2.toString())){
-                GameStorage.getInstance().removeGame(game);
-                game = createNewRandomGame(player2);
-                System.out.println("left game");
-                return game;
+            if (game.getPlayer2() != null){
+                if (game.getPlayer2().toString().equals(player2.toString())){
+                    GameStorage.getInstance().removeGame(game);
+                    game = createNewRandomGame(player2);
+                    System.out.println("left game");
+                    return game;
+                }
             }
 
             game.setPlayer2(player2);
