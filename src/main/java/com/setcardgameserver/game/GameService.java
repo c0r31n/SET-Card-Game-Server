@@ -39,7 +39,8 @@ public class GameService {
 
     public Game connectToGame(UUID player2, int gameId) throws InvalidParamException, InvalidGameException {
         if (!GameStorage.getInstance().getGames().containsKey(gameId)) {
-            throw new InvalidParamException("Game with provided id doesn't exist");
+            return null;
+//            throw new InvalidParamException("Game with provided id doesn't exist");
         }
 
         Game game = GameStorage.getInstance().getGames().get(gameId);
