@@ -28,7 +28,12 @@ public class GameController {
 //        log.info("create private game request: {}", player.getUsername());
         System.out.println("\n\ncreate private game request: " + player.getUsername()+"\n\n");
 
-        Game game = gameService.createGame(UUID.fromString(player.getUsername()));
+        Game game = null;
+        try {
+            game = gameService.createGame(UUID.fromString(player.getUsername()));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
         simpMessagingTemplate.convertAndSend("/topic/waiting", game);
         return game;
     }

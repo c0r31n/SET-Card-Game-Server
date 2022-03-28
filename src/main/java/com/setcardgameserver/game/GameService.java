@@ -19,7 +19,18 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GameService {
 
-    public Game createGame(UUID player) {
+    public Game createGame(UUID player) throws NotFoundException{
+        Optional<Game> hasGame = GameStorage.getInstance().getGames().values().stream()
+                .filter(it -> it.getPlayer1().equals(player))
+                .findFirst();
+
+        if (hasGame.isPresent()){
+            Game game = GameStorage.getInstance().getGames().values().stream()
+                    .filter(it -> it.getPlayer1().equals(player))
+                    .findFirst().orElseThrow(() -> new NotFoundException("Game not found"));
+            removeGame(game.getGameId());
+        }
+
         Game game = new Game();
         game.createGame();
         int newGameId;
@@ -37,16 +48,15 @@ public class GameService {
         return game;
     }
 
-    public Game connectToGame(UUID player2, int gameId) throws InvalidParamException, InvalidGameException {
+    public Game connectToGame(UUID player2, int gameId){
         if (!GameStorage.getInstance().getGames().containsKey(gameId)) {
             return new Game();
-//            throw new InvalidParamException("Game with provided id doesn't exist");
         }
 
         Game game = GameStorage.getInstance().getGames().get(gameId);
 
         if (game.getPlayer2() != null) {
-            throw new InvalidGameException("Game is not valid anymore");
+            return new Game();
         }
 
         game.setPlayer2(player2);
