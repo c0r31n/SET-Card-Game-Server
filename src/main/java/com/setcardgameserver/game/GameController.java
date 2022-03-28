@@ -36,7 +36,8 @@ public class GameController {
     @MessageMapping("/connect")
     public Game connect(@RequestBody ConnectRequest request) throws InvalidParamException, InvalidGameException {
 //        log.info("connect to private game request: {}", request.getPlayerId());
-        System.out.println("\n\nconnect to private game request: " + request.getGameId()+ " " + request.getPlayerId() +"\n\n");
+//        System.out.println("\n\nconnect to private game request: " + request.getGameId()+ " " + request.getPlayerId() +"\n\n");
+        System.out.println("\n\nconnect to private game request: a" + request.getGameId()+"a\n\n");
 
         Game game = gameService.connectToGame(request.getPlayerId(), request.getGameId());
         simpMessagingTemplate.convertAndSend("/topic/waiting", game);
