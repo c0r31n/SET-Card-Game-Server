@@ -25,18 +25,22 @@ public class GameController {
 
     @MessageMapping("/create")
     public Game start(@RequestBody PlayerModel player) {
-//        log.info("start game request: {}", player.getUsername());
-        System.out.println("\n\nstart game request: " + player.getUsername()+"\n\n");
+//        log.info("create private game request: {}", player.getUsername());
+        System.out.println("\n\ncreate private game request: " + player.getUsername()+"\n\n");
 
-        return gameService.createGame(UUID.fromString(player.getUsername()));
+        Game game = gameService.createGame(UUID.fromString(player.getUsername()));
+        simpMessagingTemplate.convertAndSend("/topic/waiting", game);
+        return game;
     }
 
     @MessageMapping("/connect")
     public Game connect(@RequestBody ConnectRequest request) throws InvalidParamException, InvalidGameException {
-//        log.info("connect request: {}", request.getPlayerId());
-        System.out.println("\n\nconnect request: " + request.getGameId()+ " " + request.getPlayerId() +"\n\n");
+//        log.info("connect to private game request: {}", request.getPlayerId());
+        System.out.println("\n\nconnect to private game request: " + request.getGameId()+ " " + request.getPlayerId() +"\n\n");
 
-        return gameService.connectToGame(request.getPlayerId(), request.getGameId());
+        Game game = gameService.connectToGame(request.getPlayerId(), request.getGameId());
+        simpMessagingTemplate.convertAndSend("/topic/waiting", game);
+        return game;
     }
 
     @MessageMapping("/connect/random")
