@@ -41,8 +41,7 @@ public class GameController {
     @MessageMapping("/connect")
     public Game connect(@RequestBody ConnectRequest request) throws InvalidParamException, InvalidGameException {
 //        log.info("connect to private game request: {}", request.getPlayerId());
-//        System.out.println("\n\nconnect to private game request: " + request.getGameId()+ " " + request.getPlayerId() +"\n\n");
-        System.out.println("\n\nconnect to private game request: a" + request.getGameId()+"a\n\n");
+        System.out.println("\n\nconnect to private game request: " + request.getGameId()+ " " + request.getPlayerId() +"\n\n");
 
         Game game = gameService.connectToGame(request.getPlayerId(), request.getGameId());
         simpMessagingTemplate.convertAndSend("/topic/waiting", game);
@@ -76,7 +75,7 @@ public class GameController {
     @MessageMapping("/gameplay/button")
     public Game buttonPress(@RequestBody GamePlayButtonPress buttonPress) throws NotFoundException, InvalidGameException {
 //        log.info("buttonPress: {}", buttonPress.getPlayerId());
-        System.out.println("\n\nbuttonPress:  " + buttonPress.getPlayerId()+"\n\n");
+        System.out.println("\n\nbuttonPress: "+ buttonPress.getGameId() + " " + buttonPress.getPlayerId()+"\n\n");
 
         Game game = gameService.buttonPress(buttonPress);
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);

@@ -197,7 +197,7 @@ public class GameService {
 
         Game game = GameStorage.getInstance().getGames().get(gameId);
         GameStorage.getInstance().removeGame(game);
-        System.out.println("\n\nGame removed\n\n");
+        System.out.println("\nGame removed\n");
     }
 
     public void destroyAllGames(){
