@@ -169,7 +169,7 @@ public class GameService {
                         }
                     }
                     else{
-                        game.clearSelectedCardIndexes();
+//                        game.clearSelectedCardIndexes();
                     }
                     game.setBlockedBy(null);
                 }
