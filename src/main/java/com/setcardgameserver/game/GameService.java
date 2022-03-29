@@ -1,11 +1,10 @@
 package com.setcardgameserver.game;
 
 import com.setcardgameserver.exception.InvalidGameException;
-import com.setcardgameserver.exception.InvalidParamException;
 import com.setcardgameserver.exception.NotFoundException;
 import com.setcardgameserver.game.model.Game;
-import com.setcardgameserver.game.model.GamePlay;
-import com.setcardgameserver.game.model.GamePlayButtonPress;
+import com.setcardgameserver.game.model.GameplayModel;
+import com.setcardgameserver.game.model.GameplayButtonPressModel;
 import com.setcardgameserver.game.model.GameStatus;
 import com.setcardgameserver.storage.GameStorage;
 import lombok.AllArgsConstructor;
@@ -122,7 +121,7 @@ public class GameService {
         return newGame;
     }
 
-    public Game buttonPress(GamePlayButtonPress buttonPress) throws InvalidGameException, NotFoundException {
+    public Game buttonPress(GameplayButtonPressModel buttonPress) throws InvalidGameException, NotFoundException {
         if (!GameStorage.getInstance().getGames().containsKey(buttonPress.getGameId())) {
             throw new NotFoundException("Game not found");
         }
@@ -143,12 +142,12 @@ public class GameService {
         return game;
     }
 
-    public Game gamePlay(GamePlay gamePlay) throws NotFoundException, InvalidGameException {
-        if (!GameStorage.getInstance().getGames().containsKey(gamePlay.getGameId())) {
+    public Game gameplay(GameplayModel gameplay) throws NotFoundException, InvalidGameException {
+        if (!GameStorage.getInstance().getGames().containsKey(gameplay.getGameId())) {
             throw new NotFoundException("Game not found");
         }
 
-        Game game = GameStorage.getInstance().getGames().get(gamePlay.getGameId());
+        Game game = GameStorage.getInstance().getGames().get(gameplay.getGameId());
 
         if (game.getStatus().equals(GameStatus.FINISHED)) {
             GameStorage.getInstance().removeGame(game);
@@ -156,15 +155,15 @@ public class GameService {
         }
 
         if (game.getBlockedBy()!=null){
-            if (gamePlay.isSelect()){
-                game.addToSelectedCardIndexes(gamePlay.getSelectedCardIndex());
+            if (gameplay.isSelect()){
+                game.addToSelectedCardIndexes(gameplay.getSelectedCardIndex());
 
                 if (game.getSelectedCardIndexSize()==3){
                     if(game.hasSet(game.getCardsFromIndex(game.getSelectedCardIndexes()))){
-                        game.getPoints().put(gamePlay.getPlayerId(),game.getPoints().get(gamePlay.getPlayerId())+1);
+                        game.getPoints().put(gameplay.getPlayerId(),game.getPoints().get(gameplay.getPlayerId())+1);
                         game.changeCardsOnBoard();
                         if (!game.hasSet(game.getBoard())){
-                            game.setWinner(gamePlay.getPlayerId());
+                            game.setWinner(gameplay.getPlayerId());
                             game.setStatus(GameStatus.FINISHED);
                             GameStorage.getInstance().removeGame(game);
                         }
@@ -176,7 +175,7 @@ public class GameService {
                 }
             }
             else {
-                game.removeFromSelectedCardIndexes(gamePlay.getSelectedCardIndex());
+                game.removeFromSelectedCardIndexes(gameplay.getSelectedCardIndex());
             }
         }
 

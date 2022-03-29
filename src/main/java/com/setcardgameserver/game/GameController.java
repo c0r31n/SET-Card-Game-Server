@@ -63,17 +63,17 @@ public class GameController {
     }
 
     @MessageMapping("/gameplay")
-    public Game gamePlay(@RequestBody GamePlay request) throws NotFoundException, InvalidGameException {
+    public Game gamePlay(@RequestBody GameplayModel gameplay) throws NotFoundException, InvalidGameException {
 //        log.info("gameplay: {}", request.getPlayerId());
-        System.out.println("\n\ngameplay: " + request.getGameId()+ " " + request.getPlayerId() + "\n\n");
+        System.out.println("\n\ngameplay: " + gameplay.getGameId()+ " " + gameplay.getPlayerId() + "\n\n");
 
-        Game game = gameService.gamePlay(request);
+        Game game = gameService.gameplay(gameplay);
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         return game;
     }
 
     @MessageMapping("/gameplay/button")
-    public Game buttonPress(@RequestBody GamePlayButtonPress buttonPress) throws NotFoundException, InvalidGameException {
+    public Game buttonPress(@RequestBody GameplayButtonPressModel buttonPress) throws NotFoundException, InvalidGameException {
 //        log.info("buttonPress: {}", buttonPress.getPlayerId());
         System.out.println("\n\nbuttonPress: "+ buttonPress.getGameId() + " " + buttonPress.getPlayerId()+"\n\n");
 
