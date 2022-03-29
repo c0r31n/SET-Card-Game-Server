@@ -90,7 +90,8 @@ public class Game {
 
     public void removeFromSelectedCardIndexes(int index){
         if (selectedCardIndexes.contains(index)){
-            selectedCardIndexes.remove(index);
+            int i = selectedCardIndexes.indexOf(index);
+            selectedCardIndexes.remove(i);
         }
     }
 

@@ -175,6 +175,7 @@ public class GameService {
                 }
             }
             else {
+
                 game.removeFromSelectedCardIndexes(gameplay.getSelectedCardIndex());
             }
         }
