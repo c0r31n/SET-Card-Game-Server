@@ -106,7 +106,9 @@ public class Game {
     public ArrayList<Card> getCardsFromIndex(ArrayList<Integer> indexes){
         ArrayList<Card> selectedCards = new ArrayList<>();
 
-        for (int index : indexes) selectedCards.add(board.get(indexes.get(index)));
+        for (int i = 0; indexes.size()>i;i++){
+            selectedCards.add(board.get(indexes.get(i)));
+        }
 
         return selectedCards;
     }

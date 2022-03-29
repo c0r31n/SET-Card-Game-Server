@@ -159,6 +159,7 @@ public class GameService {
                 game.addToSelectedCardIndexes(gameplay.getSelectedCardIndex());
 
                 if (game.getSelectedCardIndexSize()==3){
+                    System.out.println(game.getSelectedCardIndexes().toString());
                     if(game.hasSet(game.getCardsFromIndex(game.getSelectedCardIndexes()))){
                         game.getPoints().put(gameplay.getPlayerId(),game.getPoints().get(gameplay.getPlayerId())+1);
                         game.changeCardsOnBoard();
