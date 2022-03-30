@@ -68,7 +68,9 @@ public class GameController {
         System.out.println("gameplay: " + gameplay.getGameId()+ " " + gameplay.getPlayerId() + "\n");
 
         Game game = gameService.gameplay(gameplay);
+        System.out.println("trying to send game");
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
+        System.out.println("game has been sent");
         return game;
     }
 
