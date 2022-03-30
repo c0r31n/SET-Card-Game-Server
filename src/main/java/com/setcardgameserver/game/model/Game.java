@@ -44,17 +44,15 @@ public class Game {
 
     public boolean hasSet(ArrayList<Card> cards){
         if (cards.contains(null)){
-            System.out.println("contains null");
             ArrayList<Card> tempCards = new ArrayList<>();
             for (int i = 0; i < cards.size(); i++) {
                 if (cards.get(i) != null) {
                     tempCards.add(cards.get(i));
-                    System.out.println("added not null card");
                 }
             }
             cards.clear();
             cards.addAll(tempCards);
-            System.out.println("saved all not null cards");
+            cards.forEach(card -> System.out.println(card));
         }
             if(cards.size()>=3){
                 ArrayList<Boolean> propertyChecks = new ArrayList<>();
@@ -71,15 +69,17 @@ public class Game {
                             if (cards.get(i).getQuantity()==cards.get(j).getQuantity() && cards.get(i).getQuantity()==cards.get(k).getQuantity()) propertyChecks.set(2, true);
                             if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity()) propertyChecks.set(2, true);
 
+                            System.out.println("done the checks");
                             if (!propertyChecks.contains(false)){
                                 propertyChecks.clear();
+                                System.out.println("has SET");
                                 return true;
                             }
                         }
                     }
                 }
             }
-
+        System.out.println("doesn't have SET");
         return false;
     }
 
@@ -122,6 +122,7 @@ public class Game {
             }
             else{
                 board.set(selectedCardIndexes.get(i), null);
+                System.out.println("added nulls to the board");
             }
         }
 //        clearSelectedCardIndexes();
