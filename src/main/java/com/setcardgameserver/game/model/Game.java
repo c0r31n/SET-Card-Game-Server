@@ -54,39 +54,43 @@ public class Game {
                     nullCardIndexes.add(i);
                 }
             }
-            if (nullCardIndexes.size()==9){
-                System.out.println("doesn't have any more cards");
-                return false;
-            }
+
             cards.clear();
             cards.addAll(tempCards);
-            cards.forEach(card -> System.out.println(card));
+//            cards.forEach(card -> System.out.println(card));
+            System.out.println("null was added somehow");
         }
-            if(cards.size()>=3){
-                ArrayList<Boolean> propertyChecks = new ArrayList<>();
-                for (int i=0; 3>i;i++) propertyChecks.add(false);
 
-                for (int i=0; cards.size()>i;i++){
-                    for (int j=i+1; cards.size()>j;j++){
-                        for (int k=j+1; cards.size()>k;k++){
-                            for (int x=0; 3>x;x++) propertyChecks.set(x,false);
-                            if (cards.get(i).getColor()==cards.get(j).getColor() && cards.get(i).getColor()==cards.get(k).getColor()) propertyChecks.set(0, true);
-                            if (cards.get(i).getColor()!=cards.get(j).getColor() && cards.get(i).getColor() != cards.get(k).getColor() && cards.get(j).getColor()!=cards.get(k).getColor()) propertyChecks.set(0, true);
-                            if (cards.get(i).getShape()==cards.get(j).getShape() && cards.get(i).getShape()==cards.get(k).getShape()) propertyChecks.set(1, true);
-                            if (cards.get(i).getShape()!=cards.get(j).getShape() && cards.get(i).getShape() != cards.get(k).getShape() && cards.get(j).getShape()!=cards.get(k).getShape()) propertyChecks.set(1, true);
-                            if (cards.get(i).getQuantity()==cards.get(j).getQuantity() && cards.get(i).getQuantity()==cards.get(k).getQuantity()) propertyChecks.set(2, true);
-                            if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity()) propertyChecks.set(2, true);
+        if (nullCardIndexes.size()==9){
+            System.out.println("doesn't have any more cards");
+            return false;
+        }
 
-                            System.out.println("done the checks");
-                            if (!propertyChecks.contains(false)){
-                                propertyChecks.clear();
-                                System.out.println("has SET");
-                                return true;
-                            }
+        if(cards.size()>=3){
+            ArrayList<Boolean> propertyChecks = new ArrayList<>();
+            for (int i=0; 3>i;i++) propertyChecks.add(false);
+
+            for (int i=0; cards.size()>i;i++){
+                for (int j=i+1; cards.size()>j;j++){
+                    for (int k=j+1; cards.size()>k;k++){
+                        for (int x=0; 3>x;x++) propertyChecks.set(x,false);
+                        if (cards.get(i).getColor()==cards.get(j).getColor() && cards.get(i).getColor()==cards.get(k).getColor() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(0, true);
+                        if (cards.get(i).getColor()!=cards.get(j).getColor() && cards.get(i).getColor() != cards.get(k).getColor() && cards.get(j).getColor()!=cards.get(k).getColor() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(0, true);
+                        if (cards.get(i).getShape()==cards.get(j).getShape() && cards.get(i).getShape()==cards.get(k).getShape() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(1, true);
+                        if (cards.get(i).getShape()!=cards.get(j).getShape() && cards.get(i).getShape() != cards.get(k).getShape() && cards.get(j).getShape()!=cards.get(k).getShape() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(1, true);
+                        if (cards.get(i).getQuantity()==cards.get(j).getQuantity() && cards.get(i).getQuantity()==cards.get(k).getQuantity() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(2, true);
+                        if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(2, true);
+
+                        System.out.println("done the checks");
+                        if (!propertyChecks.contains(false)){
+                            propertyChecks.clear();
+                            System.out.println("has SET");
+                            return true;
                         }
                     }
                 }
             }
+        }
         System.out.println("doesn't have SET");
         return false;
     }
@@ -129,7 +133,7 @@ public class Game {
                 cardDeck.remove(0);
             }
             else{
-                board.set(selectedCardIndexes.get(i), null);
+                nullCardIndexes.add(selectedCardIndexes.get(i));
                 System.out.println("added nulls to the board");
             }
         }
