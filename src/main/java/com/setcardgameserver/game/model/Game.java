@@ -114,15 +114,15 @@ public class Game {
     }
 
     public void changeCardsOnBoard(){
-            for (int index : selectedCardIndexes){
-                if (cardDeck.size()>0) {
-                    board.set(index, cardDeck.get(0));
-                    cardDeck.remove(0);
-                }
-                else {
-                    board.set(index, null);
-                }
+        for (int i=0; selectedCardIndexes.size()>i;i++){
+            if (cardDeck.size()>0){
+                board.set(selectedCardIndexes.get(i),cardDeck.get(0));
+                cardDeck.remove(0);
             }
-            clearSelectedCardIndexes();
+            else{
+                board.set(selectedCardIndexes.get(i), null);
+            }
+        }
+//        clearSelectedCardIndexes();
     }
 }
