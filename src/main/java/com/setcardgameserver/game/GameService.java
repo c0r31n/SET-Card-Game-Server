@@ -147,6 +147,9 @@ public class GameService {
         }
         game.setBlockedBy(buttonPress.getPlayerId());
 
+        game.getNullCardIndexes().add(3);
+        game.getNullCardIndexes().add(7);
+
         return game;
     }
 
