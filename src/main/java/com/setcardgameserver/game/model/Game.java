@@ -63,7 +63,7 @@ public class Game {
 
         if (nullCardIndexes.size()==9){
             System.out.println("doesn't have any more cards");
-            return false;
+            return true;
         }
 
         if(cards.size()>=3){
