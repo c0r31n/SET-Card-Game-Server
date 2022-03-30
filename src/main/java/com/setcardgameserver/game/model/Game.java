@@ -85,7 +85,6 @@ public class Game {
                                     if (cards.get(i).getQuantity()==cards.get(j).getQuantity() && cards.get(i).getQuantity()==cards.get(k).getQuantity()) propertyChecks.set(2, true);
                                     if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity()) propertyChecks.set(2, true);
 
-                                    System.out.println("done the checks");
                                     if (!propertyChecks.contains(false)){
                                         propertyChecks.clear();
                                         System.out.println("has SET");
