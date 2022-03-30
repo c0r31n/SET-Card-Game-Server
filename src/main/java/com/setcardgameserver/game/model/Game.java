@@ -44,16 +44,17 @@ public class Game {
 
     public boolean hasSet(ArrayList<Card> cards){
         if (cards.contains(null)){
+            System.out.println("contains null");
             ArrayList<Card> tempCards = new ArrayList<>();
-            for (Card card : cards){
-                if (card != null){
-                    tempCards.add(card);
+            for (int i = 0; i < cards.size(); i++) {
+                if (cards.get(i) != null) {
+                    tempCards.add(cards.get(i));
+                    System.out.println("added not null card");
                 }
             }
             cards.clear();
-            for (Card card : tempCards){
-                cards.add(card);
-            }
+            cards.addAll(tempCards);
+            System.out.println("saved all not null cards");
         }
             if(cards.size()>=3){
                 ArrayList<Boolean> propertyChecks = new ArrayList<>();
