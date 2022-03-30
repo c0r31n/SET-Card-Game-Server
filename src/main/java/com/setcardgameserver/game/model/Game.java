@@ -69,6 +69,7 @@ public class Game {
         if(cards.size()>=3){
             ArrayList<Boolean> propertyChecks = new ArrayList<>();
             for (int i=0; 3>i;i++) propertyChecks.add(false);
+            System.out.println(nullCardIndexes);
 
             for (int i=0; cards.size()>i;i++){
                 for (int j=i+1; cards.size()>j;j++){
