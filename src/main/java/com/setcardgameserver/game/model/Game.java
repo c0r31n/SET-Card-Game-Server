@@ -55,11 +55,11 @@ public class Game {
             System.out.println(nullCardIndexes);
 
             for (int i=0; cards.size()>i;i++){
-                if(!nullCardIndexes.contains(i)){
+                if(!nullCardIndexes.contains(i) || cards.size()==3){
                     for (int j=i+1; cards.size()>j;j++){
-                        if(!nullCardIndexes.contains(j)){
+                        if(!nullCardIndexes.contains(j) || cards.size()==3){
                             for (int k=j+1; cards.size()>k;k++){
-                                if(!nullCardIndexes.contains(k)){
+                                if(!nullCardIndexes.contains(k) || cards.size()==3){
                                     for (int x=0; 3>x;x++) propertyChecks.set(x,false);
                                     if (cards.get(i).getColor()==cards.get(j).getColor() && cards.get(i).getColor()==cards.get(k).getColor()) propertyChecks.set(0, true);
                                     if (cards.get(i).getColor()!=cards.get(j).getColor() && cards.get(i).getColor() != cards.get(k).getColor() && cards.get(j).getColor()!=cards.get(k).getColor()) propertyChecks.set(0, true);
@@ -71,7 +71,7 @@ public class Game {
                                     if (!propertyChecks.contains(false)){
 
                                         propertyChecks.clear();
-                                        System.out.println("i: " + i + "j: " + j + "k: " + k);
+                                        System.out.println("i: " + i + " j: " + j + " k: " + k);
                                         System.out.println(cards.get(i) + " " + cards.get(j) + " " + cards.get(k));
                                         System.out.println(cards);
                                         return true;
