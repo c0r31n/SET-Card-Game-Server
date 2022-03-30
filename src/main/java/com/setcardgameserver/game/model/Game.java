@@ -129,4 +129,11 @@ public class Game {
             }
         }
     }
+
+    public UUID getWinner(){
+        if (points.get(player1)>points.get(player2)){
+            return player1;
+        }
+        return player2;
+    }
 }
