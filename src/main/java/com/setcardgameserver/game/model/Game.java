@@ -118,8 +118,6 @@ public class Game {
             if (cardDeck.size()>0){
                 board.set(selectedCardIndexes.get(i),cardDeck.get(0));
                 cardDeck.remove(0);
-
-                System.out.println("changed\n");
             }
             else{
                 board.set(selectedCardIndexes.get(i), null);
