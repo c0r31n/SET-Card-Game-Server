@@ -142,6 +142,9 @@ public class GameService {
             return game;
         }
 
+        if (game.getSelectedCardIndexSize()==3){
+            game.clearSelectedCardIndexes();
+        }
         game.setBlockedBy(buttonPress.getPlayerId());
 
         return game;
