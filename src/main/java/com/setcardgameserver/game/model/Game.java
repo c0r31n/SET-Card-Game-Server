@@ -72,24 +72,30 @@ public class Game {
             System.out.println(nullCardIndexes);
 
             for (int i=0; cards.size()>i;i++){
-                for (int j=i+1; cards.size()>j;j++){
-                    for (int k=j+1; cards.size()>k;k++){
-                        for (int x=0; 3>x;x++) propertyChecks.set(x,false);
-                        if (cards.get(i).getColor()==cards.get(j).getColor() && cards.get(i).getColor()==cards.get(k).getColor() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(0, true);
-                        if (cards.get(i).getColor()!=cards.get(j).getColor() && cards.get(i).getColor() != cards.get(k).getColor() && cards.get(j).getColor()!=cards.get(k).getColor() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(0, true);
-                        if (cards.get(i).getShape()==cards.get(j).getShape() && cards.get(i).getShape()==cards.get(k).getShape() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(1, true);
-                        if (cards.get(i).getShape()!=cards.get(j).getShape() && cards.get(i).getShape() != cards.get(k).getShape() && cards.get(j).getShape()!=cards.get(k).getShape() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(1, true);
-                        if (cards.get(i).getQuantity()==cards.get(j).getQuantity() && cards.get(i).getQuantity()==cards.get(k).getQuantity() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(2, true);
-                        if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity() && !nullCardIndexes.contains(i) && !nullCardIndexes.contains(j) && !nullCardIndexes.contains(k)) propertyChecks.set(2, true);
+                if(!nullCardIndexes.contains(i)){
+                    for (int j=i+1; cards.size()>j;j++){
+                        if(!nullCardIndexes.contains(j)){
+                            for (int k=j+1; cards.size()>k;k++){
+                                if(!nullCardIndexes.contains(k)){
+                                    for (int x=0; 3>x;x++) propertyChecks.set(x,false);
+                                    if (cards.get(i).getColor()==cards.get(j).getColor() && cards.get(i).getColor()==cards.get(k).getColor()) propertyChecks.set(0, true);
+                                    if (cards.get(i).getColor()!=cards.get(j).getColor() && cards.get(i).getColor() != cards.get(k).getColor() && cards.get(j).getColor()!=cards.get(k).getColor()) propertyChecks.set(0, true);
+                                    if (cards.get(i).getShape()==cards.get(j).getShape() && cards.get(i).getShape()==cards.get(k).getShape()) propertyChecks.set(1, true);
+                                    if (cards.get(i).getShape()!=cards.get(j).getShape() && cards.get(i).getShape() != cards.get(k).getShape() && cards.get(j).getShape()!=cards.get(k).getShape()) propertyChecks.set(1, true);
+                                    if (cards.get(i).getQuantity()==cards.get(j).getQuantity() && cards.get(i).getQuantity()==cards.get(k).getQuantity()) propertyChecks.set(2, true);
+                                    if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity()) propertyChecks.set(2, true);
 
-                        System.out.println("done the checks");
-                        if (!propertyChecks.contains(false)){
-                            propertyChecks.clear();
-                            System.out.println("has SET");
-                            return true;
-                        }
+                                    System.out.println("done the checks");
+                                    if (!propertyChecks.contains(false)){
+                                        propertyChecks.clear();
+                                        System.out.println("has SET");
+                                        return true;
+                                    }
+                                }else System.out.println("k: " + k);
+                            }
+                        }else System.out.println("j: " + j);
                     }
-                }
+                }else System.out.println("i: " + i);
             }
         }
         System.out.println("doesn't have SET");
