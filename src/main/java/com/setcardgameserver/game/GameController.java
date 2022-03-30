@@ -39,7 +39,7 @@ public class GameController {
     }
 
     @MessageMapping("/connect")
-    public Game connect(@RequestBody ConnectRequest request) throws InvalidParamException, InvalidGameException {
+    public Game connect(@RequestBody ConnectRequest request){
 //        log.info("connect to private game request: {}", request.getPlayerId());
         System.out.println("connect to private game request: " + request.getGameId()+ " " + request.getPlayerId() +"\n");
 

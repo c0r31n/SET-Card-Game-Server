@@ -44,23 +44,6 @@ public class Game {
     }
 
     public boolean hasSet(ArrayList<Card> cards){
-        if (cards.contains(null)){
-            ArrayList<Card> tempCards = new ArrayList<>();
-            for (int i = 0; i < cards.size(); i++) {
-                if (cards.get(i) != null) {
-                    tempCards.add(cards.get(i));
-                }
-                else{
-                    nullCardIndexes.add(i);
-                }
-            }
-
-            cards.clear();
-            cards.addAll(tempCards);
-//            cards.forEach(card -> System.out.println(card));
-            System.out.println("null was added somehow");
-        }
-
         if (nullCardIndexes.size()==9){
             System.out.println("doesn't have any more cards");
             return true;
@@ -86,15 +69,18 @@ public class Game {
                                     if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity()) propertyChecks.set(2, true);
 
                                     if (!propertyChecks.contains(false)){
+
                                         propertyChecks.clear();
-                                        System.out.println("has SET");
+                                        System.out.println("i: " + i + "j: " + j + "k: " + k);
+                                        System.out.println(cards.get(i) + " " + cards.get(j) + " " + cards.get(k));
+                                        System.out.println(cards);
                                         return true;
                                     }
-                                }else System.out.println("k: " + k);
+                                }
                             }
-                        }else System.out.println("j: " + j);
+                        }
                     }
-                }else System.out.println("i: " + i);
+                }
             }
         }
         System.out.println("doesn't have SET");
@@ -140,9 +126,7 @@ public class Game {
             }
             else{
                 nullCardIndexes.add(selectedCardIndexes.get(i));
-                System.out.println("added nulls to the board");
             }
         }
-//        clearSelectedCardIndexes();
     }
 }

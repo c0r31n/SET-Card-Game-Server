@@ -179,18 +179,13 @@ public class GameService {
                             GameStorage.getInstance().removeGame(game);
                         }
                     }
-                    else{
-//                        game.clearSelectedCardIndexes();
-                    }
                     game.setBlockedBy(null);
                 }
             }
             else {
-
                 game.removeFromSelectedCardIndexes(gameplay.getSelectedCardIndex());
             }
         }
-
         return game;
     }
 
