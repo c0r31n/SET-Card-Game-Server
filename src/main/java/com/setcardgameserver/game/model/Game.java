@@ -22,6 +22,7 @@ public class Game {
     private UUID blockedBy;
     private ArrayList<Integer> selectedCardIndexes = new ArrayList<>();
     private Map<UUID, Integer> points = new HashMap<>();
+    private ArrayList<Integer> nullCardIndexes = new ArrayList<>();
 
     public void createGame(){
         do {
@@ -49,6 +50,13 @@ public class Game {
                 if (cards.get(i) != null) {
                     tempCards.add(cards.get(i));
                 }
+                else{
+                    nullCardIndexes.add(i);
+                }
+            }
+            if (nullCardIndexes.size()==9){
+                System.out.println("doesn't have any more cards");
+                return false;
             }
             cards.clear();
             cards.addAll(tempCards);
