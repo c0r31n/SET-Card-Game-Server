@@ -46,7 +46,7 @@ public class Game {
     public boolean hasSet(ArrayList<Card> cards){
         if (nullCardIndexes.size()==9){
             System.out.println("doesn't have any more cards");
-            return true;
+            return false;
         }
 
         if(cards.size()>=3){
