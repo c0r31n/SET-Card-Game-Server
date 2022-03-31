@@ -130,7 +130,7 @@ public class Game {
         }
     }
 
-    public UUID getWinner(){
+    public UUID getFinalWinner(){
         if (points.get(player1)>points.get(player2)){
             return player1;
         }

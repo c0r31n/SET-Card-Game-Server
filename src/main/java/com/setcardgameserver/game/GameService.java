@@ -174,7 +174,7 @@ public class GameService {
                         game.getPoints().put(gameplay.getPlayerId(),game.getPoints().get(gameplay.getPlayerId())+1);
                         game.changeCardsOnBoard();
                         if (!game.hasSet(game.getBoard())){
-                            game.setWinner(game.getWinner());
+                            game.setWinner(game.getFinalWinner());
                             game.setStatus(GameStatus.FINISHED);
                             GameStorage.getInstance().removeGame(game);
                         }
