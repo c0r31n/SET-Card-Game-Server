@@ -68,7 +68,6 @@ public class Game {
                                     if (cards.get(i).getQuantity()!=cards.get(j).getQuantity() && cards.get(i).getQuantity() != cards.get(k).getQuantity() && cards.get(j).getQuantity()!=cards.get(k).getQuantity()) propertyChecks.set(2, true);
 
                                     if (!propertyChecks.contains(false)){
-
                                         propertyChecks.clear();
                                         System.out.println("i: " + i + " j: " + j + " k: " + k);
                                         return true;
