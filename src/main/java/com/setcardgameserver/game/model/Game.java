@@ -131,9 +131,14 @@ public class Game {
     }
 
     public UUID getFinalWinner(){
-        if (points.get(player1)>points.get(player2)){
-            return player1;
+        if (player1 != null && player2 != null){
+            if (points.get(player1)>points.get(player2)){
+                return player1;
+            }
+            else{
+                return player2;
+            }
         }
-        return player2;
+        return null;
     }
 }
