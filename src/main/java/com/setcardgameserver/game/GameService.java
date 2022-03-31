@@ -3,9 +3,9 @@ package com.setcardgameserver.game;
 import com.setcardgameserver.exception.InvalidGameException;
 import com.setcardgameserver.exception.NotFoundException;
 import com.setcardgameserver.game.model.Game;
-import com.setcardgameserver.game.model.GameplayModel;
-import com.setcardgameserver.game.model.GameplayButtonPressModel;
 import com.setcardgameserver.game.model.GameStatus;
+import com.setcardgameserver.game.model.GameplayButtonPressModel;
+import com.setcardgameserver.game.model.GameplayModel;
 import com.setcardgameserver.storage.GameStorage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GameService {
 
-    public Game createGame(UUID player) throws NotFoundException{
+    public Game createGame(UUID player) throws NotFoundException {
         Optional<Game> hasGame = GameStorage.getInstance().getGames().values().stream()
                 .filter(it -> it.getPlayer1().equals(player))
                 .findFirst();
 
-        if (hasGame.isPresent()){
+        if (hasGame.isPresent()) {
             Game game = GameStorage.getInstance().getGames().values().stream()
                     .filter(it -> it.getPlayer1().equals(player))
                     .findFirst().orElseThrow(() -> new NotFoundException("Game not found"));
@@ -36,18 +36,18 @@ public class GameService {
 
         do {
             newGameId = new Random().nextInt(99999);
-        }while(GameStorage.getInstance().getGames().containsKey(newGameId));
+        } while (GameStorage.getInstance().getGames().containsKey(newGameId));
 
         game.setGameId(newGameId);
         game.setPlayer1(player);
-        game.getPoints().put(player,0);
+        game.getPoints().put(player, 0);
         game.setStatus(GameStatus.WAITING);
         GameStorage.getInstance().setGame(game);
 
         return game;
     }
 
-    public Game connectToGame(UUID player2, int gameId){
+    public Game connectToGame(UUID player2, int gameId) {
         if (!GameStorage.getInstance().getGames().containsKey(gameId)) {
             return new Game();
         }
@@ -59,7 +59,7 @@ public class GameService {
         }
 
         game.setPlayer2(player2);
-        game.getPoints().put(player2,0);
+        game.getPoints().put(player2, 0);
         game.setStatus(GameStatus.IN_PROGRESS);
         GameStorage.getInstance().setGame(game);
         return game;
@@ -71,25 +71,24 @@ public class GameService {
                 .filter(it -> it.getStatus().equals(GameStatus.NEW))
                 .findFirst();
 
-        if (hasGame.isEmpty()){
+        if (hasGame.isEmpty()) {
             game = createNewRandomGame(player2);
             System.out.println("isEmpty");
             return game;
-        }
-        else if (hasGame.isPresent()){
+        } else if (hasGame.isPresent()) {
             game = GameStorage.getInstance().getGames().values().stream()
                     .filter(it -> it.getStatus().equals(GameStatus.NEW))
                     .findFirst().orElseThrow(() -> new NotFoundException("Game not found"));
 
-            if (game.getPlayer1().toString().equals(player2.toString())){
+            if (game.getPlayer1().toString().equals(player2.toString())) {
                 removeGame(game.getGameId());
                 game = createNewRandomGame(player2);
                 System.out.println("same game");
                 return game;
             }
 
-            if (game.getPlayer2() != null){
-                if (game.getPlayer2().toString().equals(player2.toString())){
+            if (game.getPlayer2() != null) {
+                if (game.getPlayer2().toString().equals(player2.toString())) {
                     GameStorage.getInstance().removeGame(game);
                     game = createNewRandomGame(player2);
                     System.out.println("left game");
@@ -98,7 +97,7 @@ public class GameService {
             }
 
             game.setPlayer2(player2);
-            game.getPoints().put(player2,0);
+            game.getPoints().put(player2, 0);
             game.setStatus(GameStatus.IN_PROGRESS);
             GameStorage.getInstance().setGame(game);
             System.out.println("isPresent");
@@ -109,12 +108,12 @@ public class GameService {
         return null;
     }
 
-    public Game createNewRandomGame(UUID player){
+    public Game createNewRandomGame(UUID player) {
         Game newGame = new Game();
         newGame.createGame();
         newGame.setGameId(new Random().nextInt(99999));
         newGame.setPlayer1(player);
-        newGame.getPoints().put(player,0);
+        newGame.getPoints().put(player, 0);
         newGame.setStatus(GameStatus.NEW);
         GameStorage.getInstance().setGame(newGame);
 
@@ -133,19 +132,19 @@ public class GameService {
             throw new InvalidGameException("Game is already finished");
         }
 
-        if (game.getBlockedBy() != null && game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
+        if (game.getBlockedBy() != null && game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())) {
             System.out.println("same player pressed the button");
             game.setBlockedBy(null);
             game.clearSelectedCardIndexes();
             return game;
         }
 
-        if (game.getBlockedBy() != null && !game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
+        if (game.getBlockedBy() != null && !game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())) {
             System.out.println("Both players pressed the button almost at the same time");
             return game;
         }
 
-        if (game.getSelectedCardIndexSize()==3){
+        if (game.getSelectedCardIndexSize() == 3) {
             game.clearSelectedCardIndexes();
         }
         game.setBlockedBy(buttonPress.getPlayerId());
@@ -165,18 +164,18 @@ public class GameService {
             throw new InvalidGameException("Game is already finished");
         }
 
-        if (game.getBlockedBy()!=null){
-            if (gameplay.isSelect()){
-                if (game.getSelectedCardIndexSize()==3){
+        if (game.getBlockedBy() != null) {
+            if (gameplay.isSelect()) {
+                if (game.getSelectedCardIndexSize() == 3) {
                     game.clearSelectedCardIndexes();
                 }
                 game.addToSelectedCardIndexes(gameplay.getSelectedCardIndex());
 
-                if (game.getSelectedCardIndexSize()==3){
-                    if(game.hasSet(game.getCardsFromIndex(game.getSelectedCardIndexes()))){
-                        game.getPoints().put(gameplay.getPlayerId(),game.getPoints().get(gameplay.getPlayerId())+1);
+                if (game.getSelectedCardIndexSize() == 3) {
+                    if (game.hasSet(game.getCardsFromIndex(game.getSelectedCardIndexes()))) {
+                        game.getPoints().put(gameplay.getPlayerId(), game.getPoints().get(gameplay.getPlayerId()) + 1);
                         game.changeCardsOnBoard();
-                        if (!game.hasSet(game.getBoard())){
+                        if (!game.hasSet(game.getBoard())) {
                             game.setWinner(game.calculateWinner());
                             game.setStatus(GameStatus.FINISHED);
                             GameStorage.getInstance().removeGame(game);
@@ -184,8 +183,7 @@ public class GameService {
                     }
                     game.setBlockedBy(null);
                 }
-            }
-            else {
+            } else {
                 game.removeFromSelectedCardIndexes(gameplay.getSelectedCardIndex());
             }
         }
@@ -199,7 +197,7 @@ public class GameService {
         return GameStorage.getInstance().getGames().get(gameId);
     }
 
-    public void removeGame(int gameId) throws NotFoundException{
+    public void removeGame(int gameId) throws NotFoundException {
         if (!GameStorage.getInstance().getGames().containsKey(gameId)) {
             throw new NotFoundException("Game not found");
         }
@@ -209,7 +207,7 @@ public class GameService {
         System.out.println("Game removed\n");
     }
 
-    public void destroyAllGames(){
+    public void destroyAllGames() {
         GameStorage.getInstance().removeAllGames();
     }
 }

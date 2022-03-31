@@ -25,7 +25,8 @@ public class Scoreboard {
     private int score;
     private int time;
 
-    public Scoreboard() {}
+    public Scoreboard() {
+    }
 
     public Scoreboard(Long scoreId, UUID playerId, String difficulty, int score, int time) {
         this.scoreId = scoreId;
@@ -34,6 +35,7 @@ public class Scoreboard {
         this.score = score;
         this.time = time;
     }
+
     public Scoreboard(String playerId, String difficulty, String score, String time) {
         this.playerId = UUID.fromString(playerId);
         this.difficulty = difficulty;

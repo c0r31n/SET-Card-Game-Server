@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SetCardGameServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SetCardGameServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SetCardGameServerApplication.class, args);
+    }
 
 }

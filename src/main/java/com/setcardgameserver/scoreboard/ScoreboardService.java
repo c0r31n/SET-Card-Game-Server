@@ -17,14 +17,14 @@ public class ScoreboardService {
         this.scoreboardRepository = scoreboardRepository;
     }
 
-    public List<Scoreboard> scoreboard(){
+    public List<Scoreboard> scoreboard() {
         return scoreboardRepository.findAll();
     }
 
     public Optional<Scoreboard> addScore(Scoreboard newScore) {
         Optional<Scoreboard> optionalScoreboard = scoreboardRepository.findByScoreId(newScore.getScoreId());
 
-        if (optionalScoreboard.isEmpty()){
+        if (optionalScoreboard.isEmpty()) {
             scoreboardRepository.save(newScore);
             return scoreboardRepository.findByScoreId(newScore.getScoreId());
         }
@@ -39,7 +39,7 @@ public class ScoreboardService {
         return scoreboardRepository.findFirst100ByOrderByDifficultyDescScoreDescTimeAsc();
     }
 
-    public void clearScoreboard(){
+    public void clearScoreboard() {
         scoreboardRepository.deleteAll();
     }
 }

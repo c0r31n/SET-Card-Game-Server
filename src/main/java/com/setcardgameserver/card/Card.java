@@ -16,7 +16,7 @@ public class Card {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return color.label + shape.label + quantity.label;
     }
 }

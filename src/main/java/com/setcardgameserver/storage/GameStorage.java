@@ -29,11 +29,11 @@ public class GameStorage {
         games.put(game.getGameId(), game);
     }
 
-    public void removeGame(Game game){
+    public void removeGame(Game game) {
         games.remove(game.getGameId());
     }
 
-    public void removeAllGames(){
+    public void removeAllGames() {
         games.clear();
     }
 }
