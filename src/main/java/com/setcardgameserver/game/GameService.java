@@ -137,6 +137,7 @@ public class GameService {
             System.out.println("same player pressed the button");
             game.setBlockedBy(null);
             game.clearSelectedCardIndexes();
+            return game;
         }
 
         if (game.getBlockedBy() != null && !game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){

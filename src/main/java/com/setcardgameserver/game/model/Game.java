@@ -130,6 +130,14 @@ public class Game {
         }
     }
 
+    public UUID getWinner() {
+        return winner;
+    }
+
+    public void setWinner(UUID winner) {
+        this.winner = winner;
+    }
+
     public UUID calculateWinner(){
         if (player1 != null && player2 != null){
             if (points.get(player1)>points.get(player2)){
