@@ -134,7 +134,9 @@ public class GameService {
         }
 
         if (game.getBlockedBy() != null && game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
+            System.out.println("same player pressed the button");
             game.setBlockedBy(null);
+            game.clearSelectedCardIndexes();
         }
 
         if (game.getBlockedBy() != null && !game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
@@ -174,7 +176,7 @@ public class GameService {
                         game.getPoints().put(gameplay.getPlayerId(),game.getPoints().get(gameplay.getPlayerId())+1);
                         game.changeCardsOnBoard();
                         if (!game.hasSet(game.getBoard())){
-                            game.setWinner(game.getFinalWinner());
+                            game.setWinner(game.calculateWinner());
                             game.setStatus(GameStatus.FINISHED);
                             GameStorage.getInstance().removeGame(game);
                         }
