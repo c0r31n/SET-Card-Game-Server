@@ -20,10 +20,16 @@ public class GameController {
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/create")
-    public SimplifiedGameModel start(@RequestBody PlayerModel player) throws NotFoundException{
+    public SimplifiedGameModel start(@RequestBody PlayerModel player) {
         System.out.println("create private game request: " + player.getUsername());
 
-        SimplifiedGameModel game = new SimplifiedGameModel(gameService.createGame(UUID.fromString(player.getUsername())));
+
+        SimplifiedGameModel game = null;
+        try {
+            game = new SimplifiedGameModel(gameService.createGame(UUID.fromString(player.getUsername())));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
 
         simpMessagingTemplate.convertAndSend("/topic/waiting", game);
         return game;
@@ -39,41 +45,64 @@ public class GameController {
     }
 
     @MessageMapping("/connect/random")
-    public SimplifiedGameModel connectRandom(@RequestBody PlayerModel player) throws NotFoundException {
+    public SimplifiedGameModel connectRandom(@RequestBody PlayerModel player) {
         System.out.println("connect random " + player.getUsername());
 
         JSONObject jsonPlayer = new JSONObject();
         jsonPlayer.put("player", player.getUsername());
 
-        SimplifiedGameModel game = new SimplifiedGameModel(gameService.connectToRandomGame(UUID.fromString(player.getUsername())));
+        SimplifiedGameModel game = null;
+        try {
+            game = new SimplifiedGameModel(gameService.connectToRandomGame(UUID.fromString(player.getUsername())));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
         simpMessagingTemplate.convertAndSend("/topic/waiting", game);
 
         return game;
     }
 
     @MessageMapping("/gameplay")
-    public SimplifiedGameModel gamePlay(@RequestBody GameplayModel gameplay) throws NotFoundException, InvalidGameException {
+    public SimplifiedGameModel gamePlay(@RequestBody GameplayModel gameplay) {
         System.out.println("gameplay: " + gameplay.getGameId() + " " + gameplay.getPlayerId());
 
-        SimplifiedGameModel game = new SimplifiedGameModel(gameService.gameplay(gameplay));
+        SimplifiedGameModel game = null;
+        try {
+            game = new SimplifiedGameModel(gameService.gameplay(gameplay));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        } catch (InvalidGameException e) {
+            e.printStackTrace();
+        }
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         return game;
     }
 
     @MessageMapping("/gameplay/button")
-    public SimplifiedGameModel buttonPress(@RequestBody GameplayButtonPressModel buttonPress) throws NotFoundException, InvalidGameException {
+    public SimplifiedGameModel buttonPress(@RequestBody GameplayButtonPressModel buttonPress) {
         System.out.println("buttonPress: " + buttonPress.getGameId() + " " + buttonPress.getPlayerId());
 
-        SimplifiedGameModel game = new SimplifiedGameModel(gameService.buttonPress(buttonPress));
+        SimplifiedGameModel game = null;
+        try {
+            game = new SimplifiedGameModel(gameService.buttonPress(buttonPress));
+        } catch (InvalidGameException e) {
+            e.printStackTrace();
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         return game;
     }
 
     @MessageMapping("/game/destroy")
-    public String destroyGame(@RequestBody GameIdModel gameId) throws NotFoundException {
+    public String destroyGame(@RequestBody GameIdModel gameId) {
         System.out.println("destroy game " + gameId.getGameId());
 
-        gameService.removeGame(gameId.getGameId());
+        try {
+            gameService.removeGame(gameId.getGameId());
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
         simpMessagingTemplate.convertAndSend("/topic/destroyed/" + gameId.getGameId(), "Done");
         return "Done";
     }
@@ -86,10 +115,15 @@ public class GameController {
     }
 
     @MessageMapping("/start")
-    public SimplifiedGameModel startGame(@RequestBody GameIdModel gameId) throws NotFoundException {
+    public SimplifiedGameModel startGame(@RequestBody GameIdModel gameId) {
         System.out.println("game started: " + gameId.getGameId());
 
-        SimplifiedGameModel game = new SimplifiedGameModel(gameService.getGameById(gameId.getGameId()));
+        SimplifiedGameModel game = null;
+        try {
+            game = new SimplifiedGameModel(gameService.getGameById(gameId.getGameId()));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + gameId.getGameId(), game);
 
         return game;
