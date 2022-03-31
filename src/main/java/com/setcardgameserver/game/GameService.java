@@ -133,11 +133,11 @@ public class GameService {
             throw new InvalidGameException("Game is already finished");
         }
 
-        if (game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
+        if (game.getBlockedBy() != null && game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
             game.setBlockedBy(null);
         }
 
-        if (game.getBlockedBy() != null && game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
+        if (game.getBlockedBy() != null && !game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())){
             System.out.println("Both players pressed the button almost at the same time");
             return game;
         }
