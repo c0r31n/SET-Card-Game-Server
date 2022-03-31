@@ -1,7 +1,6 @@
 package com.setcardgameserver.exception;
 
 public class InvalidParamException extends Exception {
-
     private String message;
 
     public InvalidParamException(String message) {

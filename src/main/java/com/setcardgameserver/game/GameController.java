@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.UUID;
 
 @Controller
-@Slf4j
 @AllArgsConstructor
 public class GameController {
 
@@ -25,8 +24,7 @@ public class GameController {
 
     @MessageMapping("/create")
     public Game start(@RequestBody PlayerModel player) {
-//        log.info("create private game request: {}", player.getUsername());
-        System.out.println("create private game request: " + player.getUsername()+"\n");
+        System.out.println("create private game request: " + player.getUsername());
 
         Game game = null;
         try {
@@ -40,8 +38,7 @@ public class GameController {
 
     @MessageMapping("/connect")
     public Game connect(@RequestBody ConnectRequest request){
-//        log.info("connect to private game request: {}", request.getPlayerId());
-        System.out.println("connect to private game request: " + request.getGameId()+ " " + request.getPlayerId() +"\n");
+        System.out.println("connect to private game request: " + request.getGameId()+ " " + request.getPlayerId());
 
         Game game = gameService.connectToGame(request.getPlayerId(), request.getGameId());
         simpMessagingTemplate.convertAndSend("/topic/waiting", game);
@@ -50,8 +47,7 @@ public class GameController {
 
     @MessageMapping("/connect/random")
     public Game connectRandom(@RequestBody PlayerModel player) throws NotFoundException {
-//        log.info("connect random {}", player.getUsername().toString());
-        System.out.println("connect random " + player.getUsername().toString()+"\n");
+        System.out.println("connect random " + player.getUsername());
 
         JSONObject jsonPlayer = new JSONObject();
         jsonPlayer.put("player", player.getUsername());
@@ -64,8 +60,7 @@ public class GameController {
 
     @MessageMapping("/gameplay")
     public Game gamePlay(@RequestBody GameplayModel gameplay) throws NotFoundException, InvalidGameException {
-//        log.info("gameplay: {}", request.getPlayerId());
-        System.out.println("gameplay: " + gameplay.getGameId()+ " " + gameplay.getPlayerId() + "\n");
+        System.out.println("gameplay: " + gameplay.getGameId()+ " " + gameplay.getPlayerId());
 
         Game game = gameService.gameplay(gameplay);
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
@@ -74,8 +69,7 @@ public class GameController {
 
     @MessageMapping("/gameplay/button")
     public Game buttonPress(@RequestBody GameplayButtonPressModel buttonPress) throws NotFoundException, InvalidGameException {
-//        log.info("buttonPress: {}", buttonPress.getPlayerId());
-        System.out.println("buttonPress: "+ buttonPress.getGameId() + " " + buttonPress.getPlayerId()+"\n");
+        System.out.println("buttonPress: "+ buttonPress.getGameId() + " " + buttonPress.getPlayerId());
 
         Game game = gameService.buttonPress(buttonPress);
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
@@ -84,8 +78,7 @@ public class GameController {
 
     @MessageMapping("/game/destroy")
     public String destroyGame(@RequestBody GameIdModel gameId) throws NotFoundException {
-//        log.info("destroy game {}", gameId.getGameId());
-        System.out.println("destroy game " + gameId.getGameId()+"\n");
+        System.out.println("destroy game " + gameId.getGameId());
 
         gameService.removeGame(gameId.getGameId());
         simpMessagingTemplate.convertAndSend("/topic/destroyed/" + gameId.getGameId(), "Done");
@@ -94,16 +87,14 @@ public class GameController {
 
     @MessageMapping("/all/destroy")
     public void destroyAllGames(@RequestBody PlayerModel player){
-//        log.info("destroy all games by {}", player.getUsername());
-        System.out.println("destroy all games by " + player.getUsername() +"\n");
+        System.out.println("destroy all games by " + player.getUsername());
 
         gameService.destroyAllGames();
     }
 
     @MessageMapping("/start")
     public Game startGame(@RequestBody GameIdModel gameId) throws NotFoundException {
-//        log.info("game started: {}", gameId.getGameId());
-        System.out.println("game started: " + gameId.getGameId()+"\n");
+        System.out.println("game started: " + gameId.getGameId());
 
         Game game = gameService.getGameById(gameId.getGameId());
         simpMessagingTemplate.convertAndSend("/topic/game-progress/" + gameId.getGameId(), game);
