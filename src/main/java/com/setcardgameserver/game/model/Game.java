@@ -52,7 +52,6 @@ public class Game {
         if(cards.size()>=3){
             ArrayList<Boolean> propertyChecks = new ArrayList<>();
             for (int i=0; 3>i;i++) propertyChecks.add(false);
-            System.out.println(nullCardIndexes);
 
             for (int i=0; cards.size()>i;i++){
                 if(!nullCardIndexes.contains(i) || cards.size()==3){
@@ -72,8 +71,6 @@ public class Game {
 
                                         propertyChecks.clear();
                                         System.out.println("i: " + i + " j: " + j + " k: " + k);
-                                        System.out.println(cards.get(i) + " " + cards.get(j) + " " + cards.get(k));
-                                        System.out.println(cards);
                                         return true;
                                     }
                                 }
@@ -128,14 +125,6 @@ public class Game {
                 nullCardIndexes.add(selectedCardIndexes.get(i));
             }
         }
-    }
-
-    public UUID getWinner() {
-        return winner;
-    }
-
-    public void setWinner(UUID winner) {
-        this.winner = winner;
     }
 
     public UUID calculateWinner(){
