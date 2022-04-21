@@ -1,12 +1,12 @@
-package com.setcardgameserver.game;
+package com.setcardgameserver.Service;
 
-import com.setcardgameserver.exception.InvalidGameException;
-import com.setcardgameserver.exception.NotFoundException;
-import com.setcardgameserver.game.model.Game;
-import com.setcardgameserver.game.model.GameStatus;
-import com.setcardgameserver.game.model.GameplayButtonPressModel;
-import com.setcardgameserver.game.model.GameplayModel;
-import com.setcardgameserver.storage.GameStorage;
+import com.setcardgameserver.Exception.InvalidGameException;
+import com.setcardgameserver.Exception.NotFoundException;
+import com.setcardgameserver.Model.Game;
+import com.setcardgameserver.Model.GameStatus;
+import com.setcardgameserver.DTO.GameplayButtonPress;
+import com.setcardgameserver.DTO.Gameplay;
+import com.setcardgameserver.Storage.GameStorage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -120,7 +120,7 @@ public class GameService {
         return newGame;
     }
 
-    public Game buttonPress(GameplayButtonPressModel buttonPress) throws InvalidGameException, NotFoundException {
+    public Game buttonPress(GameplayButtonPress buttonPress) throws InvalidGameException, NotFoundException {
         if (!GameStorage.getInstance().getGames().containsKey(buttonPress.getGameId())) {
             throw new NotFoundException("Game not found");
         }
@@ -152,7 +152,7 @@ public class GameService {
         return game;
     }
 
-    public Game gameplay(GameplayModel gameplay) throws NotFoundException, InvalidGameException {
+    public Game gameplay(Gameplay gameplay) throws NotFoundException, InvalidGameException {
         if (!GameStorage.getInstance().getGames().containsKey(gameplay.getGameId())) {
             throw new NotFoundException("Game not found");
         }

@@ -1,8 +1,9 @@
-package com.setcardgameserver.game;
+package com.setcardgameserver.Controller;
 
-import com.setcardgameserver.exception.InvalidGameException;
-import com.setcardgameserver.exception.NotFoundException;
-import com.setcardgameserver.game.model.*;
+import com.setcardgameserver.DTO.*;
+import com.setcardgameserver.Exception.InvalidGameException;
+import com.setcardgameserver.Exception.NotFoundException;
+import com.setcardgameserver.Service.GameService;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -20,13 +21,13 @@ public class GameController {
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/create")
-    public SimplifiedGameModel start(@RequestBody PlayerModel player) {
+    public Game start(@RequestBody Player player) {
         System.out.println("create private game request: " + player.getUsername());
 
 
-        SimplifiedGameModel game = null;
+        Game game = null;
         try {
-            game = new SimplifiedGameModel(gameService.createGame(UUID.fromString(player.getUsername())));
+            game = new Game(gameService.createGame(UUID.fromString(player.getUsername())));
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
@@ -36,24 +37,24 @@ public class GameController {
     }
 
     @MessageMapping("/connect")
-    public SimplifiedGameModel connect(@RequestBody ConnectRequest request) {
+    public Game connect(@RequestBody ConnectRequest request) {
         System.out.println("connect to private game request: " + request.getGameId() + " " + request.getPlayerId());
 
-        SimplifiedGameModel game = new SimplifiedGameModel(gameService.connectToGame(request.getPlayerId(), request.getGameId()));
+        Game game = new Game(gameService.connectToGame(request.getPlayerId(), request.getGameId()));
         simpMessagingTemplate.convertAndSend("/topic/waiting", game);
         return game;
     }
 
     @MessageMapping("/connect/random")
-    public SimplifiedGameModel connectRandom(@RequestBody PlayerModel player) {
+    public Game connectRandom(@RequestBody Player player) {
         System.out.println("connect random " + player.getUsername());
 
         JSONObject jsonPlayer = new JSONObject();
         jsonPlayer.put("player", player.getUsername());
 
-        SimplifiedGameModel game = null;
+        Game game = null;
         try {
-            game = new SimplifiedGameModel(gameService.connectToRandomGame(UUID.fromString(player.getUsername())));
+            game = new Game(gameService.connectToRandomGame(UUID.fromString(player.getUsername())));
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
@@ -63,12 +64,12 @@ public class GameController {
     }
 
     @MessageMapping("/gameplay")
-    public SimplifiedGameModel gamePlay(@RequestBody GameplayModel gameplay) {
+    public Game gamePlay(@RequestBody Gameplay gameplay) {
         System.out.println("gameplay: " + gameplay.getGameId() + " " + gameplay.getPlayerId());
 
-        SimplifiedGameModel game = null;
+        Game game = null;
         try {
-            game = new SimplifiedGameModel(gameService.gameplay(gameplay));
+            game = new Game(gameService.gameplay(gameplay));
         } catch (NotFoundException e) {
             e.printStackTrace();
         } catch (InvalidGameException e) {
@@ -79,12 +80,12 @@ public class GameController {
     }
 
     @MessageMapping("/gameplay/button")
-    public SimplifiedGameModel buttonPress(@RequestBody GameplayButtonPressModel buttonPress) {
+    public Game buttonPress(@RequestBody GameplayButtonPress buttonPress) {
         System.out.println("buttonPress: " + buttonPress.getGameId() + " " + buttonPress.getPlayerId());
 
-        SimplifiedGameModel game = null;
+        Game game = null;
         try {
-            game = new SimplifiedGameModel(gameService.buttonPress(buttonPress));
+            game = new Game(gameService.buttonPress(buttonPress));
         } catch (InvalidGameException e) {
             e.printStackTrace();
         } catch (NotFoundException e) {
@@ -95,7 +96,7 @@ public class GameController {
     }
 
     @MessageMapping("/game/destroy")
-    public String destroyGame(@RequestBody GameIdModel gameId) {
+    public String destroyGame(@RequestBody GameId gameId) {
         System.out.println("destroy game " + gameId.getGameId());
 
         try {
@@ -108,19 +109,19 @@ public class GameController {
     }
 
     @MessageMapping("/all/destroy")
-    public void destroyAllGames(@RequestBody PlayerModel player) {
+    public void destroyAllGames(@RequestBody Player player) {
         System.out.println("destroy all games by " + player.getUsername());
 
         gameService.destroyAllGames();
     }
 
     @MessageMapping("/start")
-    public SimplifiedGameModel startGame(@RequestBody GameIdModel gameId) {
+    public Game startGame(@RequestBody GameId gameId) {
         System.out.println("game started: " + gameId.getGameId());
 
-        SimplifiedGameModel game = null;
+        Game game = null;
         try {
-            game = new SimplifiedGameModel(gameService.getGameById(gameId.getGameId()));
+            game = new Game(gameService.getGameById(gameId.getGameId()));
         } catch (NotFoundException e) {
             e.printStackTrace();
         }

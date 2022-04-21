@@ -1,11 +1,11 @@
-package com.setcardgameserver.game.model;
+package com.setcardgameserver.DTO;
 
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-public class GameplayModel {
+public class Gameplay {
 
     private int gameId;
     private UUID playerId;

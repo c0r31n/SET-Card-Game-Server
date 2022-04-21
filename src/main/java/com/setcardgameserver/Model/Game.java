@@ -1,9 +1,5 @@
-package com.setcardgameserver.game.model;
+package com.setcardgameserver.Model;
 
-import com.setcardgameserver.card.Card;
-import com.setcardgameserver.card.Color;
-import com.setcardgameserver.card.Quantity;
-import com.setcardgameserver.card.Shape;
 import lombok.Data;
 
 import java.util.*;

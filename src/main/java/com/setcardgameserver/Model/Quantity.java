@@ -1,4 +1,4 @@
-package com.setcardgameserver.card;
+package com.setcardgameserver.Model;
 
 public enum Quantity {
     ONE("1"),

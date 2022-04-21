@@ -1,4 +1,4 @@
-package com.setcardgameserver.exception;
+package com.setcardgameserver.Exception;
 
 public class InvalidParamException extends Exception {
     private String message;

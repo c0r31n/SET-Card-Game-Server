@@ -1,4 +1,4 @@
-package com.setcardgameserver.card;
+package com.setcardgameserver.Model;
 
 import lombok.Data;
 

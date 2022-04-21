@@ -1,5 +1,6 @@
-package com.setcardgameserver.scoreboard;
+package com.setcardgameserver.Repository;
 
+import com.setcardgameserver.Model.Scoreboard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

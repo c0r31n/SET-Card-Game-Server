@@ -1,5 +1,7 @@
-package com.setcardgameserver.scoreboard;
+package com.setcardgameserver.Service;
 
+import com.setcardgameserver.Model.Scoreboard;
+import com.setcardgameserver.Repository.ScoreboardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
