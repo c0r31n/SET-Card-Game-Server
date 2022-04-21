@@ -47,8 +47,8 @@ public class ScoreboardController {
         scoreboardService.clearScoreboard();
     }
 
-    @GetMapping("/wakeup")
-    public String wakeUpCall() {
-        return "Woke";
+    @GetMapping("/check")
+    public String check() {
+        return "available";
     }
 }
