@@ -130,8 +130,11 @@ public class Game {
         if (player1 != null && player2 != null) {
             if (points.get(player1) > points.get(player2)) {
                 return player1;
-            } else {
+            } else if (points.get(player1) < points.get(player2)){
                 return player2;
+            }
+            else if(points.get(player1) == points.get(player2)){
+                return UUID.randomUUID();
             }
         }
         return null;
