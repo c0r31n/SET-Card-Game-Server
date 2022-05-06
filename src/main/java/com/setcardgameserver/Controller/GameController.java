@@ -86,6 +86,10 @@ public class GameController {
         Game game = null;
         try {
             game = new Game(gameService.buttonPress(buttonPress));
+            if(game == null){
+                System.out.println("null");
+                return game;
+            }
         } catch (InvalidGameException e) {
             e.printStackTrace();
         } catch (NotFoundException e) {

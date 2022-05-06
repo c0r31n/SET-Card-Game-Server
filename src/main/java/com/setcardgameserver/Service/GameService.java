@@ -141,7 +141,7 @@ public class GameService {
 
         if (game.getBlockedBy() != null && !game.getBlockedBy().toString().equals(buttonPress.getPlayerId().toString())) {
             System.out.println("Both players pressed the button almost at the same time");
-            return game;
+            return null;
         }
 
         if (game.getSelectedCardIndexSize() == 3) {
