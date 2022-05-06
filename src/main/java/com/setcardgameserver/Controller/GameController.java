@@ -64,7 +64,7 @@ public class GameController {
     }
 
     @MessageMapping("/gameplay")
-    public Game gamePlay(@RequestBody Gameplay gameplay) {
+    public Game gameplay(@RequestBody Gameplay gameplay) {
         System.out.println("gameplay: " + gameplay.getGameId() + " " + gameplay.getPlayerId());
 
         Game game = null;
