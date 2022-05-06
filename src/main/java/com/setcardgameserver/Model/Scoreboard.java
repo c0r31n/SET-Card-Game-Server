@@ -7,7 +7,6 @@ import java.util.UUID;
 
 @Entity
 @Table
-@Data
 public class Scoreboard {
     @Id
     @SequenceGenerator(
@@ -58,5 +57,25 @@ public class Scoreboard {
                 ", score=" + score +
                 ", time=" + time +
                 '}';
+    }
+
+    public Long getScoreId() {
+        return scoreId;
+    }
+
+    public UUID getPlayerId() {
+        return playerId;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getTime() {
+        return time;
     }
 }
