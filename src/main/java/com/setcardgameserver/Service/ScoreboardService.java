@@ -5,6 +5,7 @@ import com.setcardgameserver.Repository.ScoreboardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,11 +35,11 @@ public class ScoreboardService {
     }
 
     public List<Scoreboard> findPlayerScores(UUID playerId) {
-        return scoreboardRepository.findFirst100ByPlayerIdOrderByDifficultyDescScoreDescTimeAsc(playerId);
+        return scoreboardRepository.findByPlayerIdOrderByDifficultyDescScoreDescTimeAsc(playerId);
     }
 
     public List<Scoreboard> findTopScores() {
-        return scoreboardRepository.findFirst100ByOrderByDifficultyDescScoreDescTimeAsc();
+        return scoreboardRepository.findByOrderByDifficultyDescScoreDescTimeAsc();
     }
 
     public void clearScoreboard() {

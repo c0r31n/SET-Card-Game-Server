@@ -15,7 +15,7 @@ public interface ScoreboardRepository extends JpaRepository<Scoreboard, Long> {
     @Query("SELECT s FROM Scoreboard s WHERE s.scoreId = ?1")
     Optional<Scoreboard> findByScoreId(Long scoreId);
 
-    List<Scoreboard> findFirst100ByPlayerIdOrderByDifficultyDescScoreDescTimeAsc(UUID playerId);
+    List<Scoreboard> findByPlayerIdOrderByDifficultyDescScoreDescTimeAsc(UUID playerId);
 
-    List<Scoreboard> findFirst100ByOrderByDifficultyDescScoreDescTimeAsc();
+    List<Scoreboard> findByOrderByDifficultyDescScoreDescTimeAsc();
 }

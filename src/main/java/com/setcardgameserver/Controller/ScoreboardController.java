@@ -23,17 +23,6 @@ public class ScoreboardController {
         return scoreboardService.scoreboard();
     }
 
-
-    @GetMapping("/scoreboard/player/{id}")
-    public List<Scoreboard> playerScores(@PathVariable("id") UUID playerId) {
-        return scoreboardService.findPlayerScores(playerId);
-    }
-
-    @GetMapping("/scoreboard/top")
-    public List<Scoreboard> topScores() {
-        return scoreboardService.findTopScores();
-    }
-
     @PostMapping("/scoreboard/add")
     public Optional<Scoreboard> addScore(@RequestBody Scoreboard score) {
         if (score.getScore() > 0 && score.getScore() < 10 && score.getTime() > 0 && (score.getDifficulty().equals("Easy") || score.getDifficulty().equals("Normal"))) {
@@ -50,5 +39,15 @@ public class ScoreboardController {
     @GetMapping("/check")
     public String check() {
         return "available";
+    }
+
+    @GetMapping("/scoreboard/player/{id}")
+    public List<Scoreboard> playerScores(@PathVariable("id") UUID playerId) {
+        return scoreboardService.findPlayerScores(playerId);
+    }
+
+    @GetMapping("/scoreboard/top")
+    public List<Scoreboard> topScores() {
+        return scoreboardService.findTopScores();
     }
 }
