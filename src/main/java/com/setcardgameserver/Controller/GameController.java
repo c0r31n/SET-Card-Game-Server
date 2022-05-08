@@ -48,9 +48,6 @@ public class GameController {
     public Game connectRandom(@RequestBody Player player) {
         System.out.println("connect random " + player.getUsername());
 
-        JSONObject jsonPlayer = new JSONObject();
-        jsonPlayer.put("player", player.getUsername());
-
         Game game = null;
         try {
             game = new Game(gameService.connectToRandomGame(UUID.fromString(player.getUsername())));
