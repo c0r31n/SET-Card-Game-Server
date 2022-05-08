@@ -21,18 +21,17 @@ public class GameController {
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/create")
-    public Game start(@RequestBody Player player) {
+    public Game create(@RequestBody Player player) {
         System.out.println("create private game request: " + player.getUsername());
-
 
         Game game = null;
         try {
             game = new Game(gameService.createGame(UUID.fromString(player.getUsername())));
+            simpMessagingTemplate.convertAndSend("/topic/waiting", game);
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
 
-        simpMessagingTemplate.convertAndSend("/topic/waiting", game);
         return game;
     }
 
@@ -55,10 +54,25 @@ public class GameController {
         Game game = null;
         try {
             game = new Game(gameService.connectToRandomGame(UUID.fromString(player.getUsername())));
+            simpMessagingTemplate.convertAndSend("/topic/waiting", game);
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
-        simpMessagingTemplate.convertAndSend("/topic/waiting", game);
+
+        return game;
+    }
+
+    @MessageMapping("/start")
+    public Game startGame(@RequestBody GameId gameId) {
+        System.out.println("game started: " + gameId.getGameId());
+
+        Game game = null;
+        try {
+            game = new Game(gameService.getGameById(gameId.getGameId()));
+            simpMessagingTemplate.convertAndSend("/topic/game-progress/" + gameId.getGameId(), game);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
 
         return game;
     }
@@ -70,12 +84,12 @@ public class GameController {
         Game game = null;
         try {
             game = new Game(gameService.gameplay(gameplay));
+            simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         } catch (NotFoundException e) {
             e.printStackTrace();
         } catch (InvalidGameException e) {
             e.printStackTrace();
         }
-        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         return game;
     }
 
@@ -86,12 +100,12 @@ public class GameController {
         Game game = null;
         try {
             game = new Game(gameService.buttonPress(buttonPress));
+            simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         } catch (InvalidGameException e) {
             e.printStackTrace();
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
-        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
         return game;
     }
 
@@ -113,20 +127,5 @@ public class GameController {
         System.out.println("destroy all games by " + player.getUsername());
 
         gameService.destroyAllGames();
-    }
-
-    @MessageMapping("/start")
-    public Game startGame(@RequestBody GameId gameId) {
-        System.out.println("game started: " + gameId.getGameId());
-
-        Game game = null;
-        try {
-            game = new Game(gameService.getGameById(gameId.getGameId()));
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + gameId.getGameId(), game);
-
-        return game;
     }
 }
