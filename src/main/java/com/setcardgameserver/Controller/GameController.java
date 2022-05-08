@@ -119,7 +119,7 @@ public class GameController {
         return "Done";
     }
 
-    @MessageMapping("/all/destroy")
+    @MessageMapping("/game/destroy/all")
     public void destroyAllGames(@RequestBody Player player) {
         System.out.println("destroy all games by " + player.getUsername());
 
