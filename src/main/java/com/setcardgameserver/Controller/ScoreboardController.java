@@ -36,8 +36,8 @@ public class ScoreboardController {
         scoreboardService.clearScoreboard();
     }
 
-    @GetMapping("/check")
-    public String check() {
+    @GetMapping("/available")
+    public String available() {
         return "available";
     }
 
