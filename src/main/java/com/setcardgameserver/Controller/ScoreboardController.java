@@ -28,7 +28,7 @@ public class ScoreboardController {
         if (score.getScore() > 0 && score.getScore() < 10 && score.getTime() > 0 && (score.getDifficulty().equals("Easy") || score.getDifficulty().equals("Normal"))) {
             return scoreboardService.addScore(score);
         }
-        return null;
+        return Optional.of(new Scoreboard());
     }
 
     @DeleteMapping("/scoreboard")
